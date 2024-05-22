@@ -1,0 +1,18 @@
+{
+    "repoName": "megatree_callback",
+    "name": "megatr.ee song callback plugin",
+    "author": "jthop <jh@mode14.com>",
+    "description": "Plugin to monitor playlist status",
+    "homeURL": "https://github.com/jthop/megatree_callback",
+    "srcURL": "https://github.com/jthop/megatree_callback",
+    "bugURL": "https://github.com/jthop/megatree_callback/issues",
+    "versions": [
+        {
+            "minFPPVersion": "6.0",
+            "maxFPPVersion": "0",
+            "branch": "master",
+            "sha": "",
+            "allowUpdates": 1
+        }
+    ]
+}
