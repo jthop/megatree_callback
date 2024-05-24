@@ -2,7 +2,7 @@
 
 $menuEntries = Array(
 	Array(
-		'text' => 'megatr.ee callback plugin install',
+		'text' => 'megatr.ee callback',
 		'type' => 'output',
 		'page' => 'plugin_setup.php',
 		'wrap' => 1

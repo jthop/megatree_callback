@@ -1,10 +1,5 @@
 <?
-$outputGPIOReset = "";
-if (isset($_POST["GPIOResetButton"]))
-{
-$outputGPIOReset = shell_exec(escapeshellcmd("sudo ".$pluginDirectory."/".$_GET['plugin']."/callbacks.py --reset"));
-}
-$outputReinstallScript;
+
 if (isset($_POST["ReinstallScript"]))
 {
 $outputReinstallScript = shell_exec(escapeshellcmd("sudo ".$pluginDirectory."/".$_GET['plugin']."/scripts/fpp_install.sh"));
