@@ -3,29 +3,13 @@
 import argparse
 import json
 import logging
+import os
 from sys import argv
 
-if len(argv) <= 1:
-    print("Usage:")
-    print(
-        "   --list     | Used by fppd at startup. Used to start up the Si4713_RDS_Updater.py script"
-    )
-    print(
-        "   --reset    | Function by plugin_setup.php to reset the GPIO pin connected to the Si4713"
-    )
-    print("   --exit     | Function used to shutdown the Si4713_RDS_Updater.py script")
-    print(
-        "   --type media --data '{...}'    | Used by fppd when a new items starts in a playlist"
-    )
-    print(
-        "   --type playlist --data '{...}' | Used by fppd when a playlist starts or stops"
-    )
-    print("Note: Running with sudo might be needed for manual execution")
-    exit()
-
+script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
 logging.basicConfig(
-    filename="/callbacks.log",
+    filename=script_dir + "/callbacks.log",
     level=logging.DEBUG,
     format="%(asctime)s:%(name)s:%(levelname)s:%(message)s",
 )
@@ -43,6 +27,7 @@ args = parser.parse_args()
 
 if args.list:
     # Tell the plugin that we should be registered for media
+    print("media")
     logging.debug(args.list)
 
 if args.type:
