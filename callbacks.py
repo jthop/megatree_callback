@@ -27,7 +27,7 @@ script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
 logging.basicConfig(
     filename=script_dir + "/callbacks.log",
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s:%(name)s:%(levelname)s:%(message)s",
 )
 logging.info("----------")
