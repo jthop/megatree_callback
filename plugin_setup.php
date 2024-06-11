@@ -6,17 +6,6 @@ $outputReinstallScript = shell_exec(escapeshellcmd("sudo ".$pluginDirectory."/".
 }
 ?>
 
-<script type="text/javascript">
-<!--
-    function toggle(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
-//-->
-</script>
 
 <div id="megatree_callback" class="settings">
 <fieldset>

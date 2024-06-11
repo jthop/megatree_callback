@@ -27,18 +27,19 @@ args = parser.parse_args()
 
 if args.list:
     # Tell the plugin that we should be registered for media
-    print("media")
-    logging.debug(args.list)
+    print("media,playlist")
 
 if args.type:
     # Look for our type of plugin, doubt this is even needed at all
     logging.debug(args.type)
     # print "My type args: %s" %mytypearg
 
-if args.data:
-    # get the json string from FPP
-    mydataarg = args.data
-    data = json.loads(mydataarg)
-    title = data["title"]
-    #   print "Title: %s" %title
+if args.data and args.media:
+    data = json.loads(args.data)
+    # title = data["title"]
+    # print "Title: %s" %title
+    logging.debug(args.data)
+
+if args.data and args.playlist:
+    data = json.loads(args.data)
     logging.debug(args.data)
