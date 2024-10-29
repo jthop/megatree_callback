@@ -17,12 +17,10 @@ logging.info("----------")
 logging.debug("Arguments %s", argv[1:])
 
 
-parser = argparse.ArgumentParser(description="RDS Setting Application")
-parser.add_argument(
-    "-t", "--type", help="Input station name (8 characters max)", required=False
-)
-parser.add_argument("-l", "--list", help="Song name", action="store_true")
-parser.add_argument("-d", "--data", help="Song name")
+parser = argparse.ArgumentParser()
+parser.add_argument("-t", "--type", required=False)
+parser.add_argument("-l", "--list", action="store_true")
+parser.add_argument("-d", "--data")
 args = parser.parse_args()
 
 if args.list:
@@ -30,16 +28,9 @@ if args.list:
     print("media,playlist")
 
 if args.type:
-    # Look for our type of plugin, doubt this is even needed at all
-    logging.debug(args.type)
-    # print "My type args: %s" %mytypearg
-
-if args.data and args.media:
     data = json.loads(args.data)
-    # title = data["title"]
-    # print "Title: %s" %title
-    logging.debug(args.data)
 
-if args.data and args.playlist:
-    data = json.loads(args.data)
-    logging.debug(args.data)
+    if args.type == "media":
+        logging.debug(f"MEDIA - {data}")
+    elif args.type == "playlist":
+        logging.debug(f"PLAYLIST - {data}")
