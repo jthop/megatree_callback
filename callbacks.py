@@ -34,6 +34,6 @@ if args.list:
 if args.type:
     data = json.loads(args.data)
     payload = {"type": args.type, "data": data}
-    # r = requests.post(url=URL, data=payload)
-    r = requests.post(url=DEV_URL, data=payload)
+    # r = requests.post(url=URL, json=payload)
+    r = requests.post(url=DEV_URL, json=payload)
     logging.debug(payload)
