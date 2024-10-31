@@ -9,7 +9,7 @@ from sys import argv
 import requests
 
 URL = "https://api.megatr.ee/api/callback"
-DEV_URL = "https://10.10.2.25/api/callback"
+DEV_URL = "https://192.168.56.216/api/callback"
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
@@ -34,6 +34,6 @@ if args.list:
 if args.type:
     data = json.loads(args.data)
     payload = {"type": args.type, "data": data}
-    r = requests.post(url=URL, data=payload)
-    # r = requests.post(url=DEV_URL, data=payload)
+    # r = requests.post(url=URL, data=payload)
+    r = requests.post(url=DEV_URL, data=payload)
     logging.debug(payload)
