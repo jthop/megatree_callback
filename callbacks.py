@@ -9,7 +9,7 @@ from sys import argv
 import requests
 
 URL = "https://api.megatr.ee/api/fpp/callback"
-DEV_URL = "http://192.168.56.216/api/fpp/callback"
+DEV_URL = "http://192.168.56.216:8000/api/fpp/callback"
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
