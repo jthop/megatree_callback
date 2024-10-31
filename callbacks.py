@@ -9,7 +9,9 @@ from sys import argv
 import requests
 
 URL = "https://api.megatr.ee/api/fpp/callback"
-DEV_URL = "http://192.168.56.216:8000/api/fpp/callback"
+DEV_MEDIA_URL = "http://10.10.2.5:8000/api/fpp/callback/media"
+DEV_PLAYLIST_URL = "http://10.10.2.5:8000/api/fpp/callback/playlist"
+
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
@@ -33,7 +35,11 @@ if args.list:
 
 if args.type:
     data = json.loads(args.data)
-    payload = {"type": args.type, "data": data}
-    # r = requests.post(url=URL, json=payload)
-    r = requests.post(url=DEV_URL, json=payload)
+    payload = {"data": data}
+
+    if args.type == "media":
+        r = requests.post(url=DEV_MEDIA_URL, json=payload)
+    elif args.type == "playlist":
+        r = requests.post(url=DEV_PLAYLIST_URL, json=payload)
+
     logging.debug(payload)
