@@ -35,11 +35,10 @@ if args.list:
 
 if args.type:
     data = json.loads(args.data)
-    payload = {"data": data}
 
     if args.type == "media":
-        r = requests.post(url=DEV_MEDIA_URL, json=payload)
+        r = requests.post(url=DEV_MEDIA_URL, json=data)
     elif args.type == "playlist":
-        r = requests.post(url=DEV_PLAYLIST_URL, json=payload)
+        r = requests.post(url=DEV_PLAYLIST_URL, json=data)
 
     logging.debug(payload)
