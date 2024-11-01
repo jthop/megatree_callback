@@ -1,7 +1,8 @@
 #!/bin/bash
 set -x
 
-sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-pydantic python3-requests;
+sudo apt-get update && sudo apt-get install -y python3 python3-pip;
+python3 -m pip install requests pydantic --break-system-packages;
 
 echo Restarting FPP...
 curl http://localhost/api/system/fppd/restart
