@@ -42,12 +42,12 @@ if args.type:
         if data.get("Action", "") == "query_next":
             if data.get("currentEntry", {}).get("type", "") == "media":
                 song = data.get("currentEntry", {}).get("mediaFilename", "")
-                payload = {song: song}
+                payload = {"song": song}
                 r = requests.post(url=END_URL, json=payload)
 
         elif data.get("Action", "") == "playing":
             if data.get("currentEntry", {}).get("type", "") == "media":
                 song = data.get("currentEntry", {}).get("mediaFilename", "")
                 duration = data.get("currentEntry", {}).get("duration", "")
-                payload = {song: song, duration: duration}
+                payload = {"song": song, "duration": duration}
                 r = requests.post(url=BEGIN_URL, json=payload)
