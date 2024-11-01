@@ -35,6 +35,7 @@ if args.list:
 
 if args.type:
     data = json.loads(args.data)
+    logging.debug(data)
 
     if args.type == "playlist":
         if data.get("Action", "") == "query_next":
