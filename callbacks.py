@@ -61,8 +61,6 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s:%(name)s:%(levelname)s:%(message)s",
 )
-logging.info("----------")
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--type", required=False)
@@ -76,6 +74,7 @@ if args.list:
 
 if args.type:
     data = PlaylistType.model_validate_json(args.data)
+    logging.debug("Wow")
     logging.debug(data)
 
     if args.type == "playlist":
