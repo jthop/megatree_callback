@@ -34,8 +34,9 @@ if args.list:
     print("media,playlist")
 
 
-if args.type:
+if args.type and args.data:
     data = json.loads(args.data)
+
     # logging.debug(data)
 
     if args.type == "playlist":
