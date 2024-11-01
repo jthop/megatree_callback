@@ -33,20 +33,29 @@ if args.list:
     # Tell the plugin that we should be registered for media
     print("media,playlist")
 
-if args.type:
-    data = json.loads(args.data)
-    logging.debug(data)
 
-    if args.type == "playlist":
-        if data.get("Action", "") == "query_next":
-            if data.get("currentEntry", {}).get("type", "") == "media":
-                song = data.get("currentEntry", {}).get("mediaFilename", "")
-                payload = {"song": song}
-                r = requests.post(url=END_URL, json=payload)
+try:
+    if args.type:
+        data = json.loads(args.data)
+        logging.debug(data)
 
-        elif data.get("Action", "") == "playing":
-            if data.get("currentEntry", {}).get("type", "") == "media":
-                song = data.get("currentEntry", {}).get("mediaFilename", "")
-                duration = data.get("currentEntry", {}).get("duration", "")
-                payload = {"song": song, "duration": duration}
-                r = requests.post(url=BEGIN_URL, json=payload)
+        if args.type == "playlist":
+            if data.get("Action", "") == "query_next":
+                logging.debug("QUERY_NEXT")
+
+                if data.get("currentEntry", {}).get("type", "") == "media":
+                    song = data.get("currentEntry", {}).get("mediaFilename", "")
+                    payload = {"song": song}
+                    r = requests.post(url=END_URL, json=payload)
+
+            elif data.get("Action", "") == "playing":
+                logging.debug("PLAYING")
+
+                if data.get("currentEntry", {}).get("type", "") == "media":
+                    song = data.get("currentEntry", {}).get("mediaFilename", "")
+                    duration = data.get("currentEntry", {}).get("duration", "")
+                    payload = {"song": song, "duration": duration}
+                    r = requests.post(url=BEGIN_URL, json=payload)
+
+except Exception as e:
+    logging.error(e)
