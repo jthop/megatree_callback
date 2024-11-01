@@ -12,6 +12,8 @@ URL = "https://api.megatr.ee/api/fpp/callback"
 DEV_MEDIA_URL = "http://10.10.2.5:8000/api/fpp/callback/media"
 DEV_PLAYLIST_URL = "http://10.10.2.5:8000/api/fpp/callback/playlist"
 
+BEGIN_URL = "http://10.10.2.5:8000/api/fpp/callback/begin"
+END_URL = "http://10.10.2.5:8000/api/fpp/callback/end"
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
@@ -35,10 +37,18 @@ if args.list:
 
 if args.type:
     data = json.loads(args.data)
+    logging.debug(data)
 
     if args.type == "media":
         r = requests.post(url=DEV_MEDIA_URL, json=data)
     elif args.type == "playlist":
-        r = requests.post(url=DEV_PLAYLIST_URL, json=data)
+        if data.Action == "query_next" and data.type == "media":
+            song = data.current_entry.media_filename
+            payload = {song: song}
+            r = requests.post(url=END_URL, json=payload)
 
-    logging.debug(payload)
+        elif data.Action == "playing" and data.type == "media":
+            song = data.current_entry.media_filename
+            duration = data.current_entry.duration
+            payload = {song: song, duration: duration}
+            r = requests.post(url=BEGIN_URL, json=payload)
