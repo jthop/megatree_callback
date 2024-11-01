@@ -42,6 +42,9 @@ if args.type:
     if args.type == "media":
         r = requests.post(url=DEV_MEDIA_URL, json=data)
     elif args.type == "playlist":
+        logging.info("playlist")
+        logging.info(data.Action)
+        logging.info(data.type)
         if data.Action == "query_next" and data.type == "media":
             song = data.current_entry.mediaFilename
             payload = {song: song}
