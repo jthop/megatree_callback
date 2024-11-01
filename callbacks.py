@@ -35,10 +35,8 @@ if args.list:
 
 if args.type:
     data = json.loads(args.data)
-    logging.debug(data)
 
     if args.type == "playlist":
-        logging.info("playlist")
         if data.get("Action", "") == "query_next":
             if data.get("currentEntry", {}).get("type", "") == "media":
                 song = data.get("currentEntry", {}).get("mediaFilename", "")
