@@ -7,6 +7,8 @@ import os
 from sys import argv
 
 import requests
+from pydantic import BaseModel, ConfigDict
+from pydantic.alias_generators import to_camel
 
 URL = "https://api.megatr.ee/api/fpp/callback"
 DEV_MEDIA_URL = "http://10.10.2.5:8000/api/fpp/callback/media"
@@ -15,8 +17,45 @@ DEV_PLAYLIST_URL = "http://10.10.2.5:8000/api/fpp/callback/playlist"
 BEGIN_URL = "http://10.10.2.5:8000/api/fpp/callback/begin"
 END_URL = "http://10.10.2.5:8000/api/fpp/callback/end"
 
-script_dir = os.path.dirname(os.path.abspath(argv[0]))
 
+class ParentModel(BaseModel):
+    model_config = ConfigDict(
+        from_attributes=True,
+        populate_by_name=True,
+        extra="ignore",
+        alias_generator=to_camel,
+    )
+
+
+class CurrentEntry(ParentModel):
+    duration: float | None = None
+    enabled: int
+    is_finished: int
+    is_playing: int
+    is_started: int
+    media_filename: str | None = None
+    media_name: str | None = None
+    playCount: int
+    play_once: int
+    timecode: str | None = None
+    type: str
+
+
+class PlaylistType(ParentModel):
+    Action: str
+    Item: int
+    Section: str
+    current_state: str
+    loop: int
+    loop_count: int
+    name: str
+    random: int
+    repeat: int
+    size: int
+    current_entry: CurrentEntry | None = None
+
+
+script_dir = os.path.dirname(os.path.abspath(argv[0]))
 logging.basicConfig(
     filename=script_dir + "/callbacks.log",
     level=logging.DEBUG,
@@ -36,22 +75,18 @@ if args.list:
     print("media,playlist")
 
 if args.type:
-    data = json.loads(args.data)
+    data = PlaylistType.model_validate_json(args.data)
     logging.debug(data)
 
-    if args.type == "media":
-        r = requests.post(url=DEV_MEDIA_URL, json=data)
-    elif args.type == "playlist":
+    if args.type == "playlist":
         logging.info("playlist")
-        logging.info(data.Action)
-        logging.info(data.type)
         if data.Action == "query_next" and data.type == "media":
-            song = data.current_entry.mediaFilename
+            song = data.current_entry.media_filename
             payload = {song: song}
             r = requests.post(url=END_URL, json=payload)
 
         elif data.Action == "playing" and data.type == "media":
-            song = data.current_entry.mediaFilename
+            song = data.current_entry.media_filename
             duration = data.current_entry.duration
             payload = {song: song, duration: duration}
             r = requests.post(url=BEGIN_URL, json=payload)
