@@ -43,12 +43,12 @@ if args.type:
         r = requests.post(url=DEV_MEDIA_URL, json=data)
     elif args.type == "playlist":
         if data.Action == "query_next" and data.type == "media":
-            song = data.current_entry.media_filename
+            song = data.current_entry.mediaFilename
             payload = {song: song}
             r = requests.post(url=END_URL, json=payload)
 
         elif data.Action == "playing" and data.type == "media":
-            song = data.current_entry.media_filename
+            song = data.current_entry.mediaFilename
             duration = data.current_entry.duration
             payload = {song: song, duration: duration}
             r = requests.post(url=BEGIN_URL, json=payload)
