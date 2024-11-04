@@ -33,7 +33,7 @@ if args.list:
     # Tell the plugin that we should be registered for media
     print("media,playlist")
 
-
+logging.debug(args.data)
 if args.type and args.data:
     data = json.loads(args.data)
 
