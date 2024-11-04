@@ -36,23 +36,24 @@ if args.type and args.data:
     # logging.debug(data)
 
     if args.type == "playlist":
-        if data.get("Action", "") == "query_next":
+        action = data.get("Action", "")
 
-            if data.get("currentEntry", {}).get("type", "") == "media":
-                song = data.get("currentEntry", {}).get("mediaFilename", "")
+        if action == "query_next":
+            current_entry = data.get("currentEntry")
+            if current_entry.get("type", "") == "media":
+                song = current_entry.get("mediaFilename", "")
                 payload = {"song": song}
                 r = requests.post(url=END_URL, json=payload)
 
-        elif data.get("Action", "") == "playing" or data.get("Action", "") == "start":
+        elif action == ("playing" or "start"):
+            current_entry = data.get("currentEntry")
+            type = current_entry.get("type")
+            if type == ("media" or "both"):
 
-            if (
-                data.get("currentEntry", {}).get("type", "") == "media"
-                or data.get("currentEntry", {}).get("type", "") == "both"
-            ):
-                song = data.get("currentEntry", {}).get("mediaName", "")
-                duration = data.get("currentEntry", {}).get("duration", "")
+                song = current_entry.get("mediaName", "")
+                duration = current_entry.get("duration", "")
                 payload = {"song": song, "duration": duration}
                 r = requests.post(url=BEGIN_URL, json=payload)
 
-        elif data.get("Action", "") == "stop":
+        elif action == "stop":
             r = requests.get(url=STOP_URL)
