@@ -8,10 +8,13 @@ from sys import argv
 
 import requests
 
-BEGIN_URL = "http://192.168.56.211:8000/api/fpp/callback/begin"
-END_URL = "http://192.168.56.211:8000/api/fpp/callback/end"
-STOP_URL = "http://192.168.56.211:8000/api/fpp/callback/stop"
+# BEGIN_URL = "http://192.168.56.211:8000/api/fpp/callback/begin"
+# END_URL = "http://192.168.56.211:8000/api/fpp/callback/end"
+# STOP_URL = "http://192.168.56.211:8000/api/fpp/callback/stop"
 
+BEGIN_URL = "http://10.10.2.5:8000/api/fpp/callback/begin"
+END_URL = "http://10.10.2.5:8000/api/fpp/callback/end"
+STOP_URL = "http://10.10.2.5:8000/api/fpp/callback/stop"
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))
 logging.basicConfig(
