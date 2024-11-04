@@ -32,6 +32,7 @@ if args.list:
 
 if args.type and args.data:
     data = json.loads(args.data)
+    logging.debug(data)
 
     # logging.debug(data)
 
