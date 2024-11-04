@@ -12,9 +12,11 @@ import requests
 # END_URL = "http://192.168.56.211:8000/api/fpp/callback/end"
 # STOP_URL = "http://192.168.56.211:8000/api/fpp/callback/stop"
 
-BEGIN_URL = "http://10.10.2.5:8000/api/fpp/callback/begin"
-END_URL = "http://10.10.2.5:8000/api/fpp/callback/end"
+# BEGIN_URL = "http://10.10.2.5:8000/api/fpp/callback/begin"
+QUERY_NEXT_URL = "http://10.10.2.5:8000/api/fpp/callback/query_next"
 STOP_URL = "http://10.10.2.5:8000/api/fpp/callback/stop"
+MEDIA_URL = "http://10.10.2.5:8000/api/fpp/callback/media"
+
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))
 logging.basicConfig(
@@ -35,9 +37,13 @@ if args.list:
 
 if args.type and args.data:
     data = json.loads(args.data)
-    # logging.debug(data)
 
-    if args.type == "playlist":
+    if args.type == "media":
+        song = data.get("Media", "")
+        payload = {"song": song}
+        r = requests.post(url=MEDIA_URL, json=payload)
+
+    elif args.type == "playlist":
         action = data.get("Action", "")
 
         if action == "query_next":
@@ -46,25 +52,25 @@ if args.type and args.data:
             if type == "media" or type == "both":
                 song = current_entry.get("mediaName", "")
                 payload = {"song": song}
-                r = requests.post(url=END_URL, json=payload)
+                r = requests.post(url=QUERY_NEXT_URL, json=payload)
 
-        elif action == "start":
-            # action = start AND type = media
-            current_entry = data.get("currentEntry")
-            type = current_entry.get("type")
-            if type == "media" or type == "both":
-                song = current_entry.get("mediaName", "")
-                payload = {"song": song}
-                r = requests.post(url=BEGIN_URL, json=payload)
+        # elif action == "start":
+        #     # action = start AND type = media
+        #     current_entry = data.get("currentEntry")
+        #     type = current_entry.get("type")
+        #     if type == "media" or type == "both":
+        #         song = current_entry.get("mediaName", "")
+        #         payload = {"song": song}
+        #         r = requests.post(url=BEGIN_URL, json=payload)
 
-        elif action == "playing":
-            # action = playing and type = media OR both
-            current_entry = data.get("currentEntry")
-            type = current_entry.get("type")
-            if type == "media" or type == "both":
-                song = current_entry.get("mediaName", "")
-                payload = {"song": song}
-                r = requests.post(url=BEGIN_URL, json=payload)
+        # elif action == "playing":
+        #     # action = playing and type = media OR both
+        #     current_entry = data.get("currentEntry")
+        #     type = current_entry.get("type")
+        #     if type == "media" or type == "both":
+        #         song = current_entry.get("mediaName", "")
+        #         payload = {"song": song}
+        #         r = requests.post(url=BEGIN_URL, json=payload)
 
         elif action == "stop":
             r = requests.get(url=STOP_URL)
