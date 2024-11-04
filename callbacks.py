@@ -39,8 +39,9 @@ if args.type and args.data:
 
         if action == "query_next":
             current_entry = data.get("currentEntry")
-            if current_entry.get("type", "") == "media":
-                song = current_entry.get("mediaFilename", "")
+            type = current_entry.get("type")
+            if type == "media" or type == "both":
+                song = current_entry.get("mediaName", "")
                 payload = {"song": song}
                 r = requests.post(url=END_URL, json=payload)
 
@@ -48,7 +49,7 @@ if args.type and args.data:
             # action = start AND type = media
             current_entry = data.get("currentEntry")
             type = current_entry.get("type")
-            if type == "media":
+            if type == "media" or type == "both":
                 song = current_entry.get("mediaName", "")
                 payload = {"song": song}
                 r = requests.post(url=BEGIN_URL, json=payload)
