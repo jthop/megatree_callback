@@ -32,7 +32,7 @@ if args.list:
 
 if args.type and args.data:
     data = json.loads(args.data)
-    logging.debug(data)
+    # logging.debug(data)
 
     if args.type == "playlist":
         action = data.get("Action", "")
@@ -59,9 +59,8 @@ if args.type and args.data:
             type = current_entry.get("type")
             if type == "media" or type == "both":
                 song = current_entry.get("mediaName", "")
-
-            payload = {"song": song}
-            r = requests.post(url=BEGIN_URL, json=payload)
+                payload = {"song": song}
+                r = requests.post(url=BEGIN_URL, json=payload)
 
         elif action == "stop":
             r = requests.get(url=STOP_URL)
