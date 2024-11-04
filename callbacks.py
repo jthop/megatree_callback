@@ -46,11 +46,10 @@ if args.type and args.data:
                 payload = {"song": song}
                 r = requests.post(url=END_URL, json=payload)
 
-        elif action == ("playing" or "start"):
+        elif action == "playing" or action == "start":
             current_entry = data.get("currentEntry")
             type = current_entry.get("type")
-            if type == ("media" or "both"):
-
+            if type == "media" or type == "both":
                 song = current_entry.get("mediaName", "")
                 duration = current_entry.get("duration", "")
                 payload = {"song": song, "duration": duration}
