@@ -42,15 +42,15 @@ if args.type and args.data:
     if args.type == "playlist":
         action = data.get("Action", "")
 
-        if action == "query_next":
-            current_entry = data.get("currentEntry")
-            type = current_entry.get("type")
-            if type == "media" or type == "both":
-                song = current_entry.get("mediaName", "")
-                payload = {"song": song}
-                r = requests.post(url=QUERY_NEXT_URL, json=payload)
+        # if action == "query_next":
+        #     # current_entry = data.get("currentEntry")
+        #     # type = current_entry.get("type")
+        #     # if type == "media" or type == "both":
+        #     #     song = current_entry.get("mediaName", "")
+        #     #     payload = {"song": song}
+        #     #     r = requests.post(url=QUERY_NEXT_URL, json=payload)
 
-        elif action == "start":
+        if action == "start":
             # action = start AND type = media
             current_entry = data.get("currentEntry")
             type = current_entry.get("type")
