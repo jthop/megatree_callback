@@ -8,15 +8,15 @@ from sys import argv
 
 import requests
 
-# BEGIN_URL = "http://192.168.56.211:8000/api/fpp/callback/begin"
-# END_URL = "http://192.168.56.211:8000/api/fpp/callback/end"
-# STOP_URL = "http://192.168.56.211:8000/api/fpp/callback/stop"
+# QUERY_NEXT_URL = "http://10.10.2.5:8000/api/fpp/callback/query_next"
+# STOP_URL = "http://10.10.2.5:8000/api/fpp/callback/stop"
+# START_URL = "http://10.10.2.5:8000/api/fpp/callback/start"
+# PLAYING_URL = "http://10.10.2.5:8000/api/fpp/callback/playing"
 
-# BEGIN_URL = "http://10.10.2.5:8000/api/fpp/callback/begin"
-QUERY_NEXT_URL = "http://10.10.2.5:8000/api/fpp/callback/query_next"
-STOP_URL = "http://10.10.2.5:8000/api/fpp/callback/stop"
-START_URL = "http://10.10.2.5:8000/api/fpp/callback/start"
-PLAYING_URL = "http://10.10.2.5:8000/api/fpp/callback/playing"
+QUERY_NEXT_URL = "https://api.megatr.ee/api/fpp/callback/query_next"
+STOP_URL = "https://api.megatr.ee/api/fpp/callback/stop"
+START_URL = "https://api.megatr.ee/api/fpp/callback/start"
+PLAYING_URL = "https://api.megatr.ee/api/fpp/callback/playing"
 
 
 script_dir = os.path.dirname(os.path.abspath(argv[0]))

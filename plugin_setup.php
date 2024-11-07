@@ -67,8 +67,6 @@ if ($madeChange) {
 </td>
 </tr>
 
-
-
 </table>
 
 
